@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,40 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# указывает адрес, куда Django будет перенаправлять польз. при успешной авторизации, если не указан GET-параметр next
+LOGIN_REDIRECTED_URL = 'dashboard'
+# адрес, куда нужно перенаправлять пользователя для входа в систему, например из обработчиков с декоратором login_required;
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+
+# Emails settings
+# Разрешить доступ к почтовому ящику с помощью почтовых клиентов
+# С сервера imap.yandex.ru по протоколу IMAP
+# Способ авторизации по IMAP
+# Пароли приложений и OAuth-токены
+
+# Создать пароль приложения EMAIL_HOST_PASSWORD = ...
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'bfaroon@yandex.ru'
+EMAIL_HOST_PASSWORD = 'bmapekwfxpyblwek'
+# EMAIL_PASSWORD = '123qweQ.'
+
+# Емейл отправителя, будет подставляться в поле атправителя
+FROM_EMAIL = "bfaroon@yandex.ru"
+# Емуйл администратора, для отправки администратору
+EMAIL_ADMIN = "bfaroon@yandex.ru"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Для вывода имейлов в консоль
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Сервис временной электронной почты
+# https://temp-mail.org/ru/
+
+

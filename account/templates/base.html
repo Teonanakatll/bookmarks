@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+  <div id="header">
+    <span class="logo">Bookmarks</span>
+
+<!--    следует определить, выполнил ли текущий пользователь вход в свой аккаунт или он является анонимным. Текущий
+пользователь задается в объекте HttpRequest промежуточным слоем. Мы можем в любой момент обратиться к нему через
+request.user и получим объект типа User. Неавторизованный пользователь является объектом типа AnonymousUser.
+Чтобы определить, с каким типом пользователя мы имеем дело, достаточно обратиться к атрибуту is_authenticated.-->
+    {% if request.user.is_authenticated %}
+      <ul class="menu">
+        <li {% if section == "dashboard" %} class="selected" {% endif %}>
+          <a href="{% url 'dashboard' %}">My dashboard</a>
+        </li>
+        <li {% if section == "images" %} class="selected" {% endif %}>
+          <a href="#">Images</a>
+        </li>
+        <li {% if section == "people" %} class="selected" {% endif %}>
+          <a href="#">People</a>
+        </li>
+      </ul>
+    {% endif %}
+    <span class="user">
+      {% if request.user.is_authenticated %}
+        Hello {{ request.user.first_name }},
+        <a href="{% url 'logout' %}">Log-out</a>
+      {% else %}
+        <a href="{% url 'login' %}">Log-in</a>
+      {% endif %}
+    </span>
+  </div>
+  <div id="content">
+    {% block content %} {% endblock %}
+  </div>
+</body>
+</html>
