@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrstionForm, UserEditForm, ProfileEditForm
+
+from .models import Profile
 
 
 def user_login(request):
@@ -46,3 +48,39 @@ def dashboard(request):
     # Также мы добавили переменную контекста section, с помощью которой смо-
     # жем узнать, какой раздел сайта сейчас просматривает пользователь.
     return render(request, 'account/dashboard.html', {'section': 'dashboard'})
+
+
+def register(request):
+    if request.POST:
+        user_form = UserRegistrstionForm(request.POST)
+        if user_form.is_valid():
+            # Создаём нового пользователя, но пока не сохраняем в базу данных.
+            new_user = user_form.save(commit=False)
+            # Задаём пользователю зашифрованный пароль.
+            new_user.set_password(user_form.cleaned_data['password'])
+
+            # Создание профиля пользователя.
+            Profile.objects.create(user=new_user)
+
+            # Сохраняем пользователя в базе данных.
+            new_user.save()
+            return render(request, 'account/register_done.html', {'new_user': new_user})
+    else:
+        user_form = UserRegistrstionForm()
+    return render(request, 'account/register.html', {'user_form': user_form})
+
+# Мы обернули функцию в декоратор login_required, потому что для измене-
+# ния профиля пользователь должен быть авторизован.
+@login_required
+def edit(request):
+    if request.POST:
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+        profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+        profile_form = ProfileEditForm(instance=request.user.profile)
+
+    return render(request, 'account/edit.html', {'user_form': user_form, 'profile_form': profile_form})
