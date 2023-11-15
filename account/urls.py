@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('register/', views.register, name='register'),
     path('edit/', views.edit, name='edit'),
+    path('privacy_policy/', views.privacy_policy, name='privacy_policy')
 ]
 
 # PaasswordResetView – обработчик восстановления пароля. Он генерирует временную

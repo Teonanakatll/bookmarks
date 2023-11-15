@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-yonk%@m2qu=-o75y+dml%z^%8n6la^!)3#vba1g#84v4*=*7h)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Некоторые соцсети не перенарпавляют на 'localhost', '127.0.0.1'
+# В файл C:\Windows\System32\Drivers\etc\hosts прописать 127.0.0.1 mysite.com
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -39,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'social_django',
+
+    # Для коректной отправки имейлов, через админку можно поменять домен сайта
+    'django.contrib.sites',
 
 ]
 
@@ -155,10 +162,18 @@ FROM_EMAIL = "bfaroon@yandex.ru"
 # Емуйл администратора, для отправки администратору
 EMAIL_ADMIN = "bfaroon@yandex.ru"
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#  !!!!!!!!!!!!!!!!!!!!!!!!              DEFAULT_FROM_EMAIL  = "bfaroon@yandex.ru"       'django.contrib.sites',
+DEFAULT_FROM_EMAIL = "bfaroon@yandex.ru"
+
+SITE_ID = 1
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# сойт по востановлению пароля
+# https://proghunter.ru/articles/django-base-2023-password-recovery-form
 
 # Для вывода имейлов в консоль
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Сервис временной электронной почты
 # https://temp-mail.org/ru/
@@ -166,4 +181,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
 ]
+
+ # Аутентификация Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '254013034325367'
+SOCIAL_AUTH_FACEBOOK_SECRET = '58ae974465b7a98812123174e3916221'
+#Мы можем указать, какие данные хотим запрашивать из Facebook-аккаунта. Для этого нужно задать настройку
+# SOCIAL_AUTH_FACEBOOK_SCOPE с дополнительными правами, которые будут запрошены у пользователя при попытке авторизации
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
