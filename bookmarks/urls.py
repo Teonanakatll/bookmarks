@@ -22,6 +22,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
+    path('images/', include('images.urls', namespace='images')),
     path('social-auth/', include('social_django.urls', namespace='social')),
 ]
 

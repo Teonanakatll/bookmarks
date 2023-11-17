@@ -27,7 +27,10 @@ DEBUG = True
 
 # Некоторые соцсети не перенарпавляют на 'localhost', '127.0.0.1'
 # В файл C:\Windows\System32\Drivers\etc\hosts прописать 127.0.0.1 mysite.com
-ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1', '14b1-212-58-120-42.ngrok-free.app']
+
+# для Ngrok
+CSRF_TRUSTED_ORIGINS = ['https://14b1-212-58-120-42.ngrok-free.app']
 
 
 # Application definition
@@ -46,6 +49,7 @@ INSTALLED_APPS = [
 
     # Для коректной отправки имейлов, через админку можно поменять домен сайта
     'django.contrib.sites',
+    'images.apps.ImagesConfig',
 
 ]
 
