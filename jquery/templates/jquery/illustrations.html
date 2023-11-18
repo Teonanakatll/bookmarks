@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>jQuery. Image Replacement</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+          integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(function () {
+
+      $("h2").append('<em></em>');
+
+      $(".thumbs a").click(function () {
+
+        var largePath = $(this).attr("href");
+        var largeAlt = $(this).attr("title");
+
+        $("#largeImg").attr({src: largePath, alt: largeAlt});
+
+        $("h2 em").html(" (" + largeAlt + ")");
+        return false;
+      });
+
+    });
+  </script>
+
+  <style type="text/css">
+    body {
+      margin: 20px auto;
+      padding: 0;
+      width: 580px;
+      font: 75%/120% Arial, Helvetica, sans-serif;
+    }
+
+    h2 {
+      font: bold 190%/100% Arial, Helvetica, sans-serif;
+      margin: 0 0 .2em;
+    }
+
+    h2 em {
+      font: normal 80%/100% Arial, Helvetica, sans-serif;
+      color: #999999;
+    }
+
+    #largeImg {
+      border: solid 1px #ccc;
+      width: 550px;
+      height: 400px;
+      padding: 5px;
+    }
+
+    .thumbs img {
+      border: solid 1px #ccc;
+      width: 100px;
+      height: 100px;
+      padding: 4px;
+    }
+
+    .thumbs img:hover {
+      border-color: #FF9900;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>Illustrations</h2>
+
+<p><img id="largeImg" src="../../static/images/img1-lg.jpg" alt="Large image"/></p>
+
+<p class="thumbs">
+  <a href="../../static/images/img2-lg.jpg" title="Image 2"><img src="../../static/images/img2-thumb.jpg"/></a>
+  <a href="../../static/images/img3-lg.jpg" title="Image 3"><img src="../../static/images/img3-thumb.jpg"/></a>
+  <a href="../../static/images/img4-lg.jpg" title="Image 4"><img src="../../static/images/img4-thumb.jpg"/></a>
+  <a href="../../static/images/img5-lg.jpg" title="Image 5"><img src="../../static/images/img5-thumb.jpg"/></a>
+  <a href="../../static/images/img6-lg.jpg" title="Image 6"><img src="../../static/images/img6-thumb.jpg"/></a>
+</p>
+
+</body>
+</html>

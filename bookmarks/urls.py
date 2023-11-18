@@ -24,6 +24,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('images/', include('images.urls', namespace='images')),
     path('social-auth/', include('social_django.urls', namespace='social')),
+    path('jquery/', include('jquery.urls', namespace='jquery')),
 ]
 
 if settings.DEBUG:

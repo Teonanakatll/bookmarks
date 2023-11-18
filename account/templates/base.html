@@ -61,5 +61,69 @@ messages.error(request, 'Something went wrong')
   <div id="content">
     {% block content %} {% endblock %}
   </div>
+
+<!--Мы подключили библиотеку jQuery из CDN Google. Есть второй способ ее
+подключения: скачать jQuery с сайта https://jquery.com/ в папку static и под-
+ключить код оттуда.
+Мы добавили тег <script> для использования JavaScript-кода. Метод $(document).
+ready() – это функция jQuery, она получает в качестве аргумента код,
+который будет выполнен, когда удастся выстроить иерархию документа (Document
+Object Model – DOM). Браузер формирует DOM в виде древовидной струк-
+туры после загрузки страницы. Передавая выполняемый код в метод ready(),
+гарантируем, что элементы, с которыми мы будем взаимодействовать, будут
+загружены и доступны в DOM (наш код выполнится только после того, как бра-
+узер сформирует его).
+Внутри обработчика мы добавили блочный тег Django и назвали его domready.
+Так дочерние шаблоны смогут добавлять собственный JavaScript-код, который
+должен выполняться после формирования DOM.-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<!--          для AJAX-запросов обычно не используют добавление CSRF-токена в данные
+каждого запроса. Вместо этого Django позволяет нам указать собственный за-
+головок X-CSRFToken со значением токена. Таким образом, при использовании
+jQuery или любой другой JavaScript-библиотеки для асинхронных запросов за
+головок X-CSRFToken будет содержать токен, вследствие чего Django сможет об-
+работать этот запрос.
+Для того чтобы добавить токен в каждый асинхронный запрос, необходимо:
+1) получить CSRF-токен из csrftoken (задается, когда защита от CSRF акти-
+вирована в настройках проекта);
+2) отправить токен в заголовке X-CSRFToken.
+Более подробно о CSRF-защите при AJAX-запросах можно прочитать на
+странице https:// docs.djangoproject.com/en/2.0/ref/csrf/#ajax
+
+Новый код выполняет следующие действия:
+1) подключает плагин JSCookie из публичного CDN. JSCookie – это библио-
+тека, облегчающая работу с куками. Познакомиться с ней можно на сайте
+https://github.com/js-cookie/js-cookie;
+2) получает значение csrftoken с помощью Cookies.get();
+3) добавляет функцию csrfSafeMethod(), которая определяет, нужно ли про-
+верять CSRF-токен для текущего HTTP-метода. Методы, которые не тре-
+буют проверки, – GET, HEAD, OPTIONS, TRACE;
+4) настраивает AJAX-запросы методом $.ajaxSetup(). Перед отправкой каж-
+дого AJAX-запроса проверяет, нужно ли выставлять CSRF-токен. Если
+нужно, то задает в заголовке X-CSRFToken запроса значение токена, полу-
+ченное из куков.
+В нашем случае CSRF-токен будет добавляться в заголовки запросов мето-
+дами POST и PUT.--->
+  <script
+  src="https://cdn.jsdeliver.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script>
+      var csrftoken = Cookies.get('csrftoken');
+      function csrfSafeMethod(method) {
+          // Для этих методов токен не будет подставляться в заголовок.
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+    $(document).ready(function (){
+        {% block domready %}{% endblock %}
+    });
+  </script>
 </body>
 </html>

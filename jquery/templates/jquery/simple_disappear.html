@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>jQuery. Disappear</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+          integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(function () {
+
+      $(".pane .delete").click(function () {
+        $(this).parents(".pane").animate({opacity: 'hide'}, 2000);
+      });
+
+    });
+  </script>
+
+  <style type="text/css">
+    body {
+      margin: 10px auto;
+      width: 470px;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 0 0 .3em;
+    }
+
+    p {
+      margin: 0;
+      padding: 0 0 .5em;
+    }
+
+    .pane {
+      background: #edf5e1;
+      padding: 10px 20px 10px;
+      position: relative;
+      border-top: solid 2px #c4df9b;
+    }
+
+    .pane .delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+<div class="pane">
+  <h3>Sample heading</h3>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi malesuada, ante at feugiat tincidunt, enim massa
+    gravida metus, commodo lacinia massa diam vel eros. Proin eget urna. Nunc fringilla neque vitae odio. Vivamus vitae
+    ligula.</p>
+  <img src="../../static/images/btn-delete.gif" alt="delete" class="delete"/>
+</div>
+<div class="pane">
+  <h3>Sample heading</h3>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi malesuada, ante at feugiat tincidunt, enim massa
+    gravida metus, commodo lacinia massa diam vel eros. Proin eget urna. Nunc fringilla neque vitae odio. Vivamus vitae
+    ligula.</p>
+  <img src="../../static/images/btn-delete.gif" alt="delete" class="delete"/>
+</div>
+<div class="pane">
+  <h3>Sample heading</h3>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi malesuada, ante at feugiat tincidunt, enim massa
+    gravida metus, commodo lacinia massa diam vel eros. Proin eget urna. Nunc fringilla neque vitae odio. Vivamus vitae
+    ligula.</p>
+  <img src="../../static/images/btn-delete.gif" alt="delete" class="delete"/>
+</div>
+<div class="pane">
+  <h3>Sample heading</h3>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi malesuada, ante at feugiat tincidunt, enim massa
+    gravida metus, commodo lacinia massa diam vel eros. Proin eget urna. Nunc fringilla neque vitae odio. Vivamus vitae
+    ligula.</p>
+  <img src="../../static/images/btn-delete.gif" alt="delete" class="delete"/>
+</div>
+<div class="pane">
+  <h3>Sample heading</h3>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi malesuada, ante at feugiat tincidunt, enim massa
+    gravida metus, commodo lacinia massa diam vel eros. Proin eget urna. Nunc fringilla neque vitae odio. Vivamus vitae
+    ligula.</p>
+  <img src="../../static/images/btn-delete.gif" alt="delete" class="delete"/>
+</div>
+</body>
+</html>

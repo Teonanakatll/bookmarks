@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<style type="text/css">
+  .list {
+      list-style: none;
+  }
+</style>
+<div class="menu">
+  <ul class="list">
+    <li>
+      <a href="{% url 'jquery:board' %}">Board</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:simple_disappear' %}">Simple_disappear</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:chainable_effects' %}">Chainable_effects</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:accordion' %}">Accordion</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:accordion2' %}">Accordion2</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:animated_hover' %}">Animated hover</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:animated_hover2' %}">Animated hover2</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:block_clickable' %}">Block clickable</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:collapsible_panel' %}">Collapsible panel</a>
+    </li>
+        <li>
+      <a href="{% url 'jquery:illustrations' %}">Illustrations</a>
+    </li>
+  </ul>
+</div>
+
+</body>
+</html>

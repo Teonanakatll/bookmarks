@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'sorl.thumbnail',
     'social_django',
+    'jquery.apps.JqueryConfig',
 
     # Для коректной отправки имейлов, через админку можно поменять домен сайта
     'django.contrib.sites',

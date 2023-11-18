@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>jQuery. Block clickable</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"
+          integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    $(function () {
+
+      $(".pane-list li").click(function () {
+        window.location = $(this).find("a").attr("href");
+        return false;
+      });
+
+    }); //close doc ready
+  </script>
+
+  <style type="text/css">
+    body {
+      margin: 10px auto;
+      width: 470px;
+    }
+
+    a {
+      color: #333300;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: #333300;
+    }
+
+    a:hover {
+      color: #333300;
+      text-decoration: underline;
+    }
+
+    h3 {
+      margin: 0;
+      padding: 0 0 .3em;
+    }
+
+    p {
+      margin: 0;
+      padding: 0 0 .5em;
+    }
+
+    .pane-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pane-list li {
+      background: #ecfad7;
+      padding: 10px 20px 10px;
+      border-top: solid 1px #c4df9b;
+      cursor: pointer;
+    }
+
+    .pane-list li:hover {
+      background: #f6ffe9;
+    }
+  </style>
+</head>
+
+<body>
+<ul class="pane-list">
+  <li>
+    <h3><a href="https://anton.shevchuk.name">Антон Шевчук</a></h3>
+    <p>Блог web-разработчика</p>
+  </li>
+  <li>
+    <h3>Online Charts Builder</h3>
+    <p>Если Вы хотите быстро построить графики для вашего сайта, то этот <a href="https://charts.hohli.com">сервис</a>
+      для Вас</p>
+  </li>
+  <li>
+    <h3><a href="http://www.webdesignerwall.com">Web Designer Wall</a></h3>
+    <p>A wall of design ideas, web trends, and tutorials</p>
+  </li>
+  <li>
+    <h3>Best Web Gallery</h3>
+    <p>Featuring the best <a href="http://bestwebgallery.com">CSS and Flash web sites</a></p>
+  </li>
+  <li>
+    <h3>N.Design Studio</h3>
+    <p><a href="http://www.ndesign-studio.com">Blog</a> and design portfolio of Nick La</p>
+  </li>
+</ul>
+</body>
+</html>
