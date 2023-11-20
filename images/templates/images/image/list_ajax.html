@@ -1,0 +1,17 @@
+{% load thumbnail %}
+<!--Этот фрагмент будет показывать только список изображений. Мы использу-
+ем его для формирования ответа на AJAX-запрос следующей страницы.-->
+{% for image in images %}
+  <div class="image">
+    <a href="{{ image.get_absolute_url }}">
+      {% thumbnail image.image "300x300" crop="50%" as im %}
+        <a href="{{ image.get_absolute_url }}">
+          <img src="{{ im.url }}" alt="">
+        </a>
+      {% endthumbnail %}
+    </a>
+    <div class="info">
+      <a href="{{ image.get_absolute_url }}" class="title">{{ image.title }}</a>
+    </div>
+  </div>
+{% endfor %}

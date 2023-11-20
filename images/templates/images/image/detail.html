@@ -14,10 +14,18 @@
   </a>
   {% endthumbnail %}
 
-  {% with total_likes=image.users_like.count %}
+  {% with total_likes=image.users_like.count users_like=image.users_like.all %}
     <div class="image-info">
-      <div class="">
-        <span class="count">{{ total_likes }} like{{ total_likes|pluralize }}</span>
+      <div>
+        <span class="count"><span class="total">{{ total_likes }}</span>like{{ total_likes|pluralize }}</span>
+        <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}}un{% endif %}like"
+            class="like button">
+          {% if request.user not in users_like %}
+            Like
+          {% else %}
+            Unlike
+          {% endif %}
+        </a>
       </div>
       {{ image.description|linebreaks }}
     </div>
@@ -32,4 +40,54 @@
       {% endfor %}
     </div>
   {% endwith %}
+{% endblock %}
+
+<!--В этом скрипте мы выполняем следующие действия:
+1) используем селектор $('a.like'), чтобы найти все элементы <a>, у кото-
+рых есть css-класс like;
+2) определяем функцию – обработчик события click. Она будет вызываться
+при каждом клике на ссылке like/unlike;
+3) внутри обработчика используем e.preventDefault(), чтобы отменить по-
+ведение по умолчанию для ссылки <a> (при клике пользователь не будет
+перенаправлен на страницу по ссылке);
+4) используем функцию $.post() для выполнения асинхронного POST-запроса.
+jQuery также предоставляет функции $.get() для отправки GET-запроса
+и $.ajax() (в нем мы можем указать метод запроса);
+5) мы используем шаблонный тег Django{% url .., чтобы получить URL об-
+работчика AJAX-запроса на сервере;
+6) формируем POST-параметры для обработчика на сервере (ID и action). По-
+лучаем их значения из атрибутов data-id и data-action элемента <a>;
+7) определяем функцию, которая будет вызвана при успешном выполнении
+запроса. Она получает в качестве аргумента data данные из тела ответа;
+8) проверяем атрибут status полученных в ответе данных – равен ли он
+значению ok. Если равен, заменяем атрибут data-action и текст ссылки на
+противоположные. Так пользователь сможет отменить свое действие;
+9) увеличиваем или уменьшаем общее количество лайков в зависимости от
+выполненного действия.-->
+
+{% block domready %}
+  $('a.like').click(function(e){
+    e.preventDefault();
+    $.post('{% url "images:like" %}',
+      {
+        id: $(this).data('id'),
+        action: $(this).data('action')
+      },
+      function(data){
+        if (data['status'] == 'ok')
+        {
+          var previous_action = $('a.like').data('action');
+
+          // Изменяем переменную действия
+          $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+          // Изменяем текст ссылки
+          $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+          // Обновляем общее количество лайков
+          var previous_likes = parseInt($('span.count .total').text());
+          $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+        }
+      }
+    );
+  });
 {% endblock %}

@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -20,7 +20,7 @@ request.user и получим объект типа User. Неавторизо�
           <a href="{% url 'dashboard' %}">My dashboard</a>
         </li>
         <li {% if section == "images" %} class="selected" {% endif %}>
-          <a href="#">Images</a>
+          <a href="{% url 'images:list' %}">Images</a>
         </li>
         <li {% if section == "people" %} class="selected" {% endif %}>
           <a href="#">People</a>
@@ -106,8 +106,9 @@ https://github.com/js-cookie/js-cookie;
 ченное из куков.
 В нашем случае CSRF-токен будет добавляться в заголовки запросов мето-
 дами POST и PUT.--->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script
-  src="https://cdn.jsdeliver.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
   <script>
       var csrftoken = Cookies.get('csrftoken');
       function csrfSafeMethod(method) {
@@ -121,9 +122,9 @@ https://github.com/js-cookie/js-cookie;
               }
           }
       });
-    $(document).ready(function (){
-        {% block domready %}{% endblock %}
-    });
+      $(document).ready(function(){
+          {% block domready %}{% endblock %}
+      });
   </script>
 </body>
 </html>
