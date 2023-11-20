@@ -23,7 +23,7 @@ request.user и получим объект типа User. Неавторизо�
           <a href="{% url 'images:list' %}">Images</a>
         </li>
         <li {% if section == "people" %} class="selected" {% endif %}>
-          <a href="#">People</a>
+          <a href="{% url 'user_list' %}">People</a>
         </li>
       </ul>
     {% endif %}
@@ -123,7 +123,8 @@ https://github.com/js-cookie/js-cookie;
           }
       });
       $(document).ready(function(){
-          {% block domready %}{% endblock %}
+       {% block domready %}
+          {% endblock %}
       });
   </script>
 </body>

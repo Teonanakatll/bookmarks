@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -32,6 +34,10 @@ ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1', '14b1-212-58-120-42.ngr
 # для Ngrok
 CSRF_TRUSTED_ORIGINS = ['https://14b1-212-58-120-42.ngrok-free.app']
 
+# Задаём URL для модели
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])
+}
 
 # Application definition
 
